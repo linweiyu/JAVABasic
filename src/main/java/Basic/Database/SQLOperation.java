@@ -15,7 +15,7 @@ public class SQLOperation {
         //UpdateValue("user");
         //DeleteValue("user");
         //InsertValue("user");
-        SelectValue();
+        ExamplePrepareStatement("linweiyu");
     }
 
     public static Connection GetDataBaseConnection(){
@@ -25,9 +25,9 @@ public class SQLOperation {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, pw);
-        }catch (SQLException ee){
+        }catch (ClassNotFoundException ee){
             ee.printStackTrace();
-        }catch (ClassNotFoundException e){
+        }catch (SQLException e){
             e.printStackTrace();
         }
         return conn;
@@ -55,16 +55,17 @@ public class SQLOperation {
         return  result;
     }
 
-    public static Statement ExecuteSqlCommonQuery(String sql){
+    public static ResultSet ExecuteSqlCommonQuery(String sql){
         Connection conn = GetDataBaseConnection();
+        ResultSet result = null;
         Statement statement = null;
         try{
             statement = conn.createStatement();
-            statement.execute(sql);
+            result = statement.executeQuery(sql);
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return statement;
+        return result;
     }
 
     public static void CreateTable(){
@@ -94,14 +95,13 @@ public class SQLOperation {
 
     public static void SelectValue(){
         String sql = "select * from user";
-        Statement statement = ExecuteSqlCommonQuery(sql);
+        ResultSet resultSet = ExecuteSqlCommonQuery(sql);
         try {
-            ResultSet resultset = statement.getResultSet();
-            ResultSetMetaData metaData = resultset.getMetaData();
+            ResultSetMetaData metaData = resultSet.getMetaData();
             int columns = metaData.getColumnCount();
-            while(resultset.next()){
+            while(resultSet.next()){
                 for(int i = 1; i <= columns; i++){
-                    System.out.print(resultset.getString(i));
+                    System.out.print(resultSet.getString(i));
                     System.out.print("\t\t");
                 }
                 System.out.println();
@@ -116,4 +116,24 @@ public class SQLOperation {
             }
         }
     }
+    public static void ExamplePrepareStatement(String username){
+        Connection conn = GetDataBaseConnection();
+        try{
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM user where name=?");
+            preparedStatement.setString(1,username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columns = metaData.getColumnCount();
+            while(resultSet.next()){
+                for(int i = 1; i <= columns; i++){
+                    System.out.print(resultSet.getString(i));
+                    System.out.print("\t");
+                }
+                System.out.println();
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 }
