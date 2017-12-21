@@ -15,11 +15,10 @@ public class Article {
         this.author = author;
     }
 
-    public Article(String title, String content, int article_id, int user_article) {
+    public Article(String title, String content, int article_id) {
         this.article_id = article_id;
         this.title = title;
         this.content = content;
-        this.user_article = user_article;
     }
 
     public int getArticle_id() {

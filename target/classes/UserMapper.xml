@@ -10,8 +10,7 @@
         <id property="id" column="user_id"></id>
         <result property="username" column="name"></result>
         <result property="password" column="password"></result>
-
-        <collection property="articleList" ofType="Basic.MyBatis.Model.Article" javaType="collection" column="user_id" foreignColumn="user_article" autoMapping="true" select="Basic.MyBatis.Model.ArticleMapper.selectArticle">
+        <collection property="articleList" ofType="Basic.MyBatis.Model.Article" javaType="java.util.ArrayList" column="user_id">
             <id property="article_id" column="article_id"></id>
             <result property="title" column="title"></result>
             <result property="content" column="content"></result>
@@ -44,5 +43,7 @@
     <delete id="deleteUser">
         DELETE FROM user WHERE user_id = #{user_id}
     </delete>
+
+    <cache></cache>
 
 </mapper>

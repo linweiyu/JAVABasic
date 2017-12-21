@@ -15,6 +15,7 @@ public class SQLOperation {
         //UpdateValue("user");
         //DeleteValue("user");
         //InsertValue("user");
+
         ExamplePrepareStatement("linweiyu");
     }
 
