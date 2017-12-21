@@ -1,5 +1,6 @@
 package Basic.MyBatis;
 
+import Basic.MyBatis.Model.UserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -35,6 +36,7 @@ public class MyBatisUtil {
      * @return SqlSession
      */
     public static SqlSession getSqlSession(){
+        //sqlSessionFactory.getConfiguration().addMapper(UserMapper.class);
         return sqlSessionFactory.openSession();
     }
     /**

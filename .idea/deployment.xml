@@ -2,6 +2,13 @@
 <project version="4">
   <component name="PublishConfigData" serverName="ALI">
     <serverData>
+      <paths name="10.10.83.85">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="ALI">
         <serverdata>
           <mappings>

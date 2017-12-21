@@ -1,35 +1,48 @@
 package Basic.MyBatis.Model;
 
+import java.util.List;
+
 public class User {
-    private String name;
+    private String username;
     private String password;
-    private int user_id;
+    private int id;
+    private List<Article> articleList;
+
+
+
+    public List<Article> getArticleList() {
+        return articleList;
+    }
+
+    public void setArticleList(List<Article> articleList) {
+        this.articleList = articleList;
+    }
 
     public User(String name, String password, int user_id) {
-        this.name = name;
+        this.username = name;
         this.password = password;
-        this.user_id = user_id;
+        this.id = user_id;
     }
 
     public int getUser_id() {
-        return user_id;
+        return id;
     }
 
     public void setUser_id(int user_id) {
-        this.user_id = user_id;
+        this.id = user_id;
     }
 
     public User(String name, String password) {
-        this.name = name;
+        this.username = name;
         this.password = password;
     }
 
     public String getName() {
-        return name;
+        return username;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.username = name;
     }
 
     public String getPassword() {
