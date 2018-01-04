@@ -18,7 +18,7 @@ public class MemoryCache extends AbstractStore{
             mapStore.get(element.getKey()).setValue(element.getValue());
         else{
             if(mapStore.size() >= maxSize){
-                if(removeLastExpiredElement() == 0){
+                if(removeExpiredElement() == 0){
                     removeLastUsedElement();
                 }
             }
@@ -26,7 +26,17 @@ public class MemoryCache extends AbstractStore{
         }
     }
 
-    private int removeLastExpiredElement(){
+    @Override
+    public boolean remove(Object key) {
+        if(mapStore.containsKey(key)){
+            mapStore.remove(key);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    private int removeExpiredElement(){
         int count = 0;
         for(Map.Entry<Object, Element> entry : mapStore.entrySet()){
             if(entry.getValue().isExpired()){
