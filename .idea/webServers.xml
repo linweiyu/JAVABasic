@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="d2618794-f01d-47ba-b098-a62bb519f1b2" name="ALI" url="http://121.42.158.62">
-        <fileTransfer host="121.42.158.62" port="22" rootFolder="/home" accessType="SFTP">
+        <fileTransfer host="121.42.158.62" port="22" rootFolder="/root/tomcat/apache-tomcat-7.0.82/webapps" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>
