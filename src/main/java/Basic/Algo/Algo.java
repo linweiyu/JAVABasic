@@ -4,8 +4,9 @@ import java.util.*;
 
 public class Algo {
     public static void main(String[] args) {
-        System.out.println(isValid("]"));
+        System.out.println(removeElement(new int[]{1,2,3,4}, 2));
     }
+
     public static boolean isPalindrome(int x) {
         List<Integer> storeNumber = new ArrayList<Integer>();
         boolean isPositive = x >= 0 ? true : false;
@@ -118,25 +119,75 @@ public class Algo {
     }
 
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        if(l1 == null)
+        if (l1 == null)
             return l2;
-        if(l2 == null)
+        if (l2 == null)
             return l1;
         ListNode resultHead = new ListNode(0), temp = resultHead;
-        while (l1 != null && l2 != null){
-            if(l1.val < l2.val){
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
                 temp.next = l1;
                 l1 = l1.next;
-            }else{
+            } else {
                 temp.next = l2;
                 l2 = l2.next;
             }
             temp = temp.next;
         }
-        if(l1 != null && l2 == null)
+        if (l1 != null && l2 == null)
             temp.next = l1;
-        if(l2 != null && l1 == null)
+        if (l2 != null && l1 == null)
             temp.next = l2;
         return resultHead.next;
+    }
+
+    public static int removeDuplicates(int[] nums) {
+        if (nums == null || nums.length == 0)
+            return 0;
+        int duplicateNumber = 0, temp = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (temp == nums[i]) {
+                duplicateNumber++;
+
+            } else {
+                temp = nums[i];
+            }
+            nums[i - duplicateNumber] = nums[i];
+        }
+        return nums.length - duplicateNumber;
+    }
+
+    public static int removeDuplicatesBetter(int[] nums) {
+        int dupNum = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i - 1] == nums[i]) {
+                dupNum++;
+            }
+            nums[i - dupNum] = nums[i];
+        }
+        return nums.length - dupNum;
+    }
+
+    //1 2 2 3          3 2 2 3   3  2 2 2 3    4 5 6   6   1 2 3 4   2
+    public static int removeElement(int[] nums, int val) {
+//        if(nums.length == 1){
+//            if(nums[0] == val)
+//                return 0;
+//            else
+//                return 1;
+//        }
+        int front = 0, count = 0;
+        for(int i = 0; i < nums.length; i++){
+            if((nums[i] ^ val) == 0){
+                count++;
+            }else{
+                if(count > 0){
+                    nums[front] = nums[i];
+                    front = i;
+                }
+                front++;
+            }
+        }
+        return nums.length - count;
     }
 }
