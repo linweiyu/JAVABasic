@@ -4,8 +4,10 @@ import java.util.*;
 
 public class Algo {
     public static void main(String[] args) {
-        System.out.println(removeElement(new int[]{1,2,3,4}, 2));
+//        System.out.println(removeElement(new int[]{1,2,3,4}, 2));
+        moveZeroes(new int[]{1,0,1});
     }
+
 
     public static boolean isPalindrome(int x) {
         List<Integer> storeNumber = new ArrayList<Integer>();
@@ -170,24 +172,49 @@ public class Algo {
 
     //1 2 2 3          3 2 2 3   3  2 2 2 3    4 5 6   6   1 2 3 4   2
     public static int removeElement(int[] nums, int val) {
-//        if(nums.length == 1){
-//            if(nums[0] == val)
-//                return 0;
-//            else
-//                return 1;
-//        }
-        int front = 0, count = 0;
+        Queue<Integer> sameIndexs = new LinkedList<Integer>();
+        int count = 0;
         for(int i = 0; i < nums.length; i++){
-            if((nums[i] ^ val) == 0){
+            if(nums[i] == val){
+                sameIndexs.offer(i);
                 count++;
             }else{
-                if(count > 0){
-                    nums[front] = nums[i];
-                    front = i;
+                if(!sameIndexs.isEmpty()){
+                    int sameIndex = sameIndexs.poll();
+                    int temp = nums[sameIndex];
+                    nums[sameIndex] = nums[i];
+                    nums[i] = sameIndex;
+                    sameIndexs.offer(i);
                 }
-                front++;
             }
         }
         return nums.length - count;
+    }
+    public static void moveZeroes(int[] nums) {
+        int numsOf0 = 0;
+        Queue<Integer> sameIndexs = new LinkedList<Integer>();
+        for(int item : nums){
+            if((item ^ 0) == 0){
+                numsOf0++;
+            }
+        }
+        if(numsOf0 == 0)
+            return;
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] != 0){
+                if(!sameIndexs.isEmpty()){
+                    int zeroIndex = sameIndexs.poll();
+                    int temp = nums[zeroIndex];
+                    nums[zeroIndex] = nums[i];
+                    nums[i] = temp;
+                    sameIndexs.offer(i);
+                }
+            }else{
+                sameIndexs.offer(i);
+            }
+        }
+        for(int k = nums.length; k < numsOf0; k--){
+            nums[k] = 0;
+        }
     }
 }
