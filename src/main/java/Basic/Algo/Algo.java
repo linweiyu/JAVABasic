@@ -5,7 +5,9 @@ import java.util.*;
 public class Algo {
     public static void main(String[] args) {
 //        System.out.println(removeElement(new int[]{1,2,3,4}, 2));
-        moveZeroes(new int[]{1,0,1});
+//        moveZeroes(new int[]{1,0,1});
+//        System.out.println(strStr("", ""));
+        System.out.println(multiply("0","0"));
     }
 
 
@@ -217,4 +219,59 @@ public class Algo {
             nums[k] = 0;
         }
     }
+    public static int strStr(String haystack, String needle) {
+        char[] hayArray = haystack.toCharArray();
+        char[] needleArray = needle.toCharArray();
+        if(needleArray.length == 0)
+            return 0;
+        for(int i = 0; i < hayArray.length; i++){
+            int temp = i;
+            for(int j = 0; j < needleArray.length; j++){
+                if(temp < hayArray.length && hayArray[temp] == needleArray[j]){
+                    temp++;
+                }else
+                    break;
+            }
+            if(temp - i == needleArray.length){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    //KMP
+
+
+    public static int searchInsert(int[] nums, int target) {
+        for(int i = 0; i < nums.length - 1; i++){
+            if(nums[i] >= target){
+                return i;
+            }else if(nums[i] < target && target < nums[i + 1]){
+                return i + 1;
+            }
+        }
+        if(nums[nums.length - 1] >= target)
+            return nums.length - 1;
+        else
+            return nums.length;
+    }
+    public static String multiply(String num1, String num2) {
+        int m = num1.length(), n = num2.length();
+        int[] result = new int[n + m];
+        for(int i = n - 1; i >= 0; i--){
+            for(int j = m - 1; j >= 0; j--){
+                int mul = (num1.charAt(j) - '0') * (num2.charAt(i) - '0');
+                int sum = result[i + j + 1] + mul;
+                result[i + j + 1] = sum % 10;
+                result[i + j] += sum / 10;
+            }
+        }
+        StringBuffer stringBuffer = new StringBuffer();
+        for(int item : result)
+            if(!(stringBuffer.length() == 0 && item == 0))
+                stringBuffer.append(item);
+        return stringBuffer.length() == 0 ? "0" : stringBuffer.toString();
+    }
+
+
 }
