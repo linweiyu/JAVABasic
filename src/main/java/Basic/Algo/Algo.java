@@ -7,6 +7,7 @@ public class Algo {
 //        System.out.println(removeElement(new int[]{1,2,3,4}, 2));
 //        moveZeroes(new int[]{1,0,1});
 //        System.out.println(strStr("", ""));
+        System.getProperties();
         System.out.println(multiply("0","0"));
     }
 
@@ -241,7 +242,6 @@ public class Algo {
 
     //KMP
 
-
     public static int searchInsert(int[] nums, int target) {
         for(int i = 0; i < nums.length - 1; i++){
             if(nums[i] >= target){
@@ -271,6 +271,27 @@ public class Algo {
             if(!(stringBuffer.length() == 0 && item == 0))
                 stringBuffer.append(item);
         return stringBuffer.length() == 0 ? "0" : stringBuffer.toString();
+    }
+
+    public static void merge(int[] nums1, int m, int[] nums2, int n) {
+        int begin = m + n - 1;
+        while(m >= 1 && n >= 1){
+            if(nums1[m - 1] > nums2[n - 1]){
+                nums1[begin] = nums1[m - 1];
+                m--;
+                begin--;
+            }else{
+                nums1[begin] = nums2[n - 1];
+                n--;
+                begin--;
+            }
+        }
+        if(m == 0 && n >= 1){
+            for(int i = n - 1; i >=0; i--){
+                nums1[begin] = nums2[i];
+                begin--;
+            }
+        }
     }
 
 
