@@ -8,7 +8,8 @@ public class Algo {
 //        moveZeroes(new int[]{1,0,1});
 //        System.out.println(strStr("", ""));
         System.getProperties();
-        System.out.println(multiply("0","0"));
+//        System.out.println(multiply("0","0"));
+        System.out.println(lengthOfLastWord(" "));
     }
 
 
@@ -293,6 +294,11 @@ public class Algo {
             }
         }
     }
-
+    public static int lengthOfLastWord(String s) {
+        String[] strArray = s.split(" ");
+        if(strArray.length == 0)
+            return 0;
+        return strArray[strArray.length - 1].length();
+    }
 
 }
